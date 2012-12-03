@@ -63,3 +63,5 @@ Module Utility
     End Structure
 End Module
 
+'            expression = String.Format("[LOOP_NAME] LIKE '{0}' AND [TYPNO] LIKE '{1}'", tagInfo.loopName, 'tagInfo.typicalName)
+            'Dim rows As DataRow() = dbTable.Select(expression)
