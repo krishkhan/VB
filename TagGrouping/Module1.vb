@@ -23,7 +23,7 @@ Module Module1
         Dim currentLine As String = String.Empty
         Dim currentStartTagLine As String = String.Empty
         Dim startUpdatingLocation As Boolean = False
-        Dim currrentElementKey As String = String.Empty
+        Dim currentElementKey As String = String.Empty
         '^(([0-9],?)+)$
         Dim updateLine As Integer = 0
         For i As Integer = 0 To targetDrawingLines.Count - 1 Step 1
@@ -31,18 +31,34 @@ Module Module1
             If currentLine.StartsWith(":") Then
                 'this is a start tag
                 currentStartTagLine = currentLine
-            Else
+                'reset the values
+                startUpdatingLocation = False
+                currentElementKey = String.Empty
+            ElseIf Not startUpdatingLocation Then
                 startReading = True
             End If
 
             If startReading Then
                 currentLine = currentLine.TrimEnd(New Char() {";"c})
                 Dim subitems() As String = currentLine.Split(New Char() {":"c})
-                For Each item As String In subitems
-                    If elementTagLocations.ContainsKey(item) Then
+                If Not startUpdatingLocation Then
+                    For Each item As String In subitems
+                        If elementTagLocations.ContainsKey(item) Then
+                            currentElementKey = item
+                            startUpdatingLocation = True
+                        End If
+                    Next
+                Else
+                    'update the location
+                    Dim blockCommentName As String = subitems(3)
+
+                    Dim tagValueDict As Dictionary(Of String, String) = elementTagLocations(currentElementKey)
+                    If tagValueDict.ContainsKey(blockCommentName) Then
+                        Dim blockCommentLocation As String = tagValueDict(blockCommentName)
 
                     End If
-                Next
+
+                End If
 
             End If
 
