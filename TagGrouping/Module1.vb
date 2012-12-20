@@ -9,13 +9,13 @@ Module Module1
         Dim elementTagLocations As New Dictionary(Of String, Dictionary(Of String, String))
 
         Dim elementName As String = String.Empty
-        Dim taglistString As String = "EBLK,DCLK,ABCD"
-        Dim locationlistString As String = "120,130;121,142;135,150"
+        Dim taglistString As String = "ETCM,ESCL,EINP,EUNT,ETAG,PIR!"
+        Dim locationlistString As String = "120,130;121,142;135,150;123,111;124,456;123,456"
 
         Dim tagLocationDictionary As New Dictionary(Of String, String)
         getTagLocationCollection(tagLocationDictionary, taglistString, locationlistString)
 
-        elementTagLocations.Add("element1", tagLocationDictionary)
+        elementTagLocations.Add("%%I01PT001", tagLocationDictionary)
 
         Dim startReading As Boolean = False
 
@@ -28,6 +28,7 @@ Module Module1
         Dim updateLine As Integer = 0
         For i As Integer = 0 To targetDrawingLines.Count - 1 Step 1
             currentLine = targetDrawingLines(i)
+            Console.WriteLine(currentLine)
             If currentLine.StartsWith(":") Then
                 'this is a start tag
                 currentStartTagLine = currentLine
@@ -55,15 +56,13 @@ Module Module1
                     Dim tagValueDict As Dictionary(Of String, String) = elementTagLocations(currentElementKey)
                     If tagValueDict.ContainsKey(blockCommentName) Then
                         Dim blockCommentLocation As String = tagValueDict(blockCommentName)
-
+                        If Regex.IsMatch(currentLine, "(?<x>[0-9]+),(?<y>[0-9]+)") Then
+                            Dim replaceString1 As String = Regex.Replace(currentLine, "(?<x>[0-9]+),(?<y>[0-9]+)", blockCommentLocation)
+                        End If
                     End If
-
-                End If
-
-            End If
-
+                End If 'end of update location
+            End If 'end of start reading
         Next
-
     End Sub
 
     Private Function getTagLocationCollection(ByRef tagLocationDictionary As Dictionary(Of String, String), _
