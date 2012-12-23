@@ -82,4 +82,35 @@ Module Module1
         End If
         Return isSuccess
     End Function
+
+    'Dim drawingSheetRule As String = DrawingSheetName.Trim
+    'Dim columnName As String = DrawingSheetHelper.getDrawingSheetColumnName(drawingSheetRule)
+    'Dim validSheetName As String = String.Empty
+    'Dim drawingSheetNumber As Integer
+    'Dim dbTable As DataTable = TableFactory.TaglistTable.MyTableData
+    'Dim tagListTableView As New DataView(TableFactory.TaglistTable.MyTableData)
+    '    tagListTableView.Sort = "[" & TableFactory.TypnoColumnName & "] ASC, [" & TableFactory.LoopColumnName & "] ASC, [" & TableFactory.FcsColumnName & "] ASC, [" & TableFactory.PidTagColumnName & "] ASC"
+    'Dim rowNum As Integer = 0
+    'Dim expression As String = String.Empty
+    '    For Each generationRow As GenerationDataSet.GenerationRow In generationTable.Rows
+    ''only check loops that will be generated
+    '        If Not generationRow.IsForGenerationNull() AndAlso generationRow.ForGeneration Then
+    '            expression = String.Format("[LOOP] LIKE '{0}' AND [TYPNO] LIKE '{1}' AND [FCS] LIKE '{2}'", _
+    '                                                      generationRow.TypicalName, generationRow.LoopName, generationRow.StationName
+
+    'Dim rows As DataRow() = dbTable.Select(expression)
+    '            If rows.Length > 0 Then
+    '                If Not columnName.Equals(String.Empty) Then
+    '                    validSheetName = rows(0).Item(columnName).ToString()
+    '                    validSheetName = DrawingSheetHelper.embeddTagValInDrawingSheetName(drawingSheetRule, validSheetName)
+    '                Else
+    '                    validSheetName = drawingSheetRule
+    '                End If
+    '                drawingSheetNumber = CInt(rows(0).Item("DRAWNO"))
+    '            End If
+    'Dim DrawingWithFCS As New DrawingDetailsWithFCS(drawingSheetNumber, validSheetName, generationRow.StationName)
+    '            SelectedlistofdrawingfilewithFcs.Add(DrawingWithFCS)
+    '        End If
+    '        rowNum += 1
+    '    Next
 End Module
